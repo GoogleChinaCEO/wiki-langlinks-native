@@ -8,7 +8,7 @@ namespace WikiLanglinks
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = new MainPage(new MainViewModel());
         }
 
         protected override void OnStart()
