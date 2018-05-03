@@ -2,12 +2,9 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:local="clr-namespace:WikiLanglinks" 
-    x:Class="WikiLanglinks.MainPage">
+    xmlns:v="clr-namespace:WikiLanglinks.Views"
+    x:Class="WikiLanglinks.Views.MainPage">
     <StackLayout Padding="0,20,0,0">
-        <Entry 
-            Placeholder="Search here ..."
-            Keyboard="Text"
-            Completed="OnSearchInputCompleted"/>
+        <v:SearchView />
     </StackLayout>
 </ContentPage>

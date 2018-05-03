@@ -1,4 +1,7 @@
 ﻿using Xamarin.Forms;
+using WikiLanglinks.Services;
+using WikiLanglinks.ViewModels;
+using WikiLanglinks.Views;
 
 namespace WikiLanglinks
 {
@@ -7,8 +10,7 @@ namespace WikiLanglinks
         public App()
         {
             InitializeComponent();
-
-            MainPage = new MainPage(new MainViewModel());
+            MainPage = new MainPage();
         }
 
         protected override void OnStart()
