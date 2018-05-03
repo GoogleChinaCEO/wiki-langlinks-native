@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WikiLanglinks.Models
+namespace WikiLanglinks
 {
     public class SearchResults
     {

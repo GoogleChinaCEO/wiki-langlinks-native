@@ -3,9 +3,8 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using WikiLanglinks.Models;
 
-namespace WikiLanglinks.Services
+namespace WikiLanglinks
 {
     public class WikiLanglinksApiClient : IWikiLanglinksApiClient
     {

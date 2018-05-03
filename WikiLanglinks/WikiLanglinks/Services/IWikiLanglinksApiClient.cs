@@ -1,7 +1,6 @@
 ﻿using System.Threading.Tasks;
-using WikiLanglinks.Models;
 
-namespace WikiLanglinks.Services
+namespace WikiLanglinks
 {
     public interface IWikiLanglinksApiClient
     {

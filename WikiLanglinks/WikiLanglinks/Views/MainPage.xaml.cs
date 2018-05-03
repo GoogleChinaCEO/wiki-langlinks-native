@@ -1,19 +1,13 @@
 ﻿using Xamarin.Forms;
-using WikiLanglinks.ViewModels;
 
-namespace WikiLanglinks.Views
+namespace WikiLanglinks
 {
     public partial class MainPage : ContentPage
     {
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel();
+            BindingContext = new MainViewModel(new WikiLanglinksApiClient());
         }
-		
-        private MainViewModel ViewModel 
-		{ 
-			get { return BindingContext as MainViewModel; } 
-		}		
     }
 }

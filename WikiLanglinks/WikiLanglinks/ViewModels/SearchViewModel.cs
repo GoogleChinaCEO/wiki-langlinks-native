@@ -2,15 +2,17 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using WikiLanglinks.Models;
-using WikiLanglinks.Services;
 using Xamarin.Forms;
 
-namespace WikiLanglinks.ViewModels
+namespace WikiLanglinks
 {
     public class SearchViewModel : BaseViewModel
     {
         private readonly IWikiLanglinksApiClient _apiClient;
+
+        public event Action LoadingStarted;
+
+        public event Action<SearchResults> LoadingFinished;
 
         public SearchViewModel(IWikiLanglinksApiClient apiClient)
         {
@@ -36,8 +38,21 @@ namespace WikiLanglinks.ViewModels
                 Targets = new[] { "de", "es" }
             };
 
-            var results = await _apiClient.GetLanglinks(searchRequest);
-            Debug.WriteLine($"Fetched {results.LangLinks.Length} results");
+            LoadingStarted?.Invoke();
+
+            var results = new SearchResults();
+            try
+            {
+                results = await _apiClient.GetLanglinks(searchRequest);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error: {e.Message}");
+            }
+            finally
+            {
+                LoadingFinished?.Invoke(results);
+            }
         }
     }
 }

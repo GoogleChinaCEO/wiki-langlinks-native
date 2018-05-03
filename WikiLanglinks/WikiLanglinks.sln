@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiLanglinks.iOS", "iOS\Wi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiLanglinks.Droid", "Droid\WikiLanglinks.Droid.csproj", "{A74A6BBC-1396-4608-902B-4E22F9580E8A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikiLanglinks.Tests", "WikiLanglinks.Tests\WikiLanglinks.Tests.csproj", "{039E96BC-6A1D-4170-AD1B-3AA45454427E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,5 +55,17 @@ Global
 		{A74A6BBC-1396-4608-902B-4E22F9580E8A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{A74A6BBC-1396-4608-902B-4E22F9580E8A}.Debug|iPhone.ActiveCfg = Debug|Any CPU
 		{A74A6BBC-1396-4608-902B-4E22F9580E8A}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Release|iPhone.Build.0 = Release|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{039E96BC-6A1D-4170-AD1B-3AA45454427E}.Debug|iPhone.Build.0 = Debug|Any CPU
 	EndGlobalSection
 EndGlobal

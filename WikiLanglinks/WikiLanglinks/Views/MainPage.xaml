@@ -2,9 +2,10 @@
 <ContentPage 
     xmlns="http://xamarin.com/schemas/2014/forms" 
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
-    xmlns:v="clr-namespace:WikiLanglinks.Views"
-    x:Class="WikiLanglinks.Views.MainPage">
+    xmlns:local="clr-namespace:WikiLanglinks"
+    x:Class="WikiLanglinks.MainPage">
     <StackLayout Padding="0,20,0,0">
-        <v:SearchView />
+        <local:SearchView BindingContext="{Binding SearchVM}" />
+        <local:ResultsView BindingContext="{Binding ResultsVM}" />
     </StackLayout>
 </ContentPage>

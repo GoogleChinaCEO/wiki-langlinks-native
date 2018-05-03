@@ -1,17 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using Xamarin.Forms;
-using WikiLanglinks.Services;
-using WikiLanglinks.ViewModels;
 
-namespace WikiLanglinks.Views
+namespace WikiLanglinks
 {
     public partial class SearchView : ContentView
     {
         public SearchView()
         {
             InitializeComponent();
-            BindingContext = new SearchViewModel(new WikiLanglinksApiClient());
         }
 
         private SearchViewModel ViewModel
