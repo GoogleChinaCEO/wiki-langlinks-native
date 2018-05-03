@@ -7,6 +7,27 @@
             Color="Black" 
             IsRunning="{Binding IsLoading}"
             AbsoluteLayout.LayoutBounds="0.5, 0.1, 50, 50"
-            AbsoluteLayout.LayoutFlags="PositionProportional" />        
+            AbsoluteLayout.LayoutFlags="PositionProportional" />
+        <ListView
+            IsVisible="{Binding Path=IsLoading, Converter={StaticResource InverseBooleanConverter}}"
+            ItemsSource="{Binding SearchResults}"
+            AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
+            AbsoluteLayout.LayoutFlags="All">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Orientation="Horizontal" Padding="5">
+                            <Label 
+                                Text="{Binding Autonym}"
+                                VerticalOptions="Center"/>
+                            <Label 
+                                Text="{Binding Title}"
+                                TextColor="Blue"
+                                VerticalOptions="Center"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </AbsoluteLayout>
 </ContentView>
