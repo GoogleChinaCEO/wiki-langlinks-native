@@ -12,7 +12,8 @@
             IsVisible="{Binding Path=IsLoading, Converter={StaticResource InverseBooleanConverter}}"
             ItemsSource="{Binding SearchResults}"
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
-            AbsoluteLayout.LayoutFlags="All">
+            AbsoluteLayout.LayoutFlags="All"
+            ItemTapped="OnItemTapped">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

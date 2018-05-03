@@ -10,9 +10,14 @@ namespace WikiLanglinks
             InitializeComponent();
         }
 
-        private ResultsViewModel ViewModel
+        private void OnItemTapped(object sender, ItemTappedEventArgs e)
         {
-            get { return BindingContext as ResultsViewModel; }
+            var listView = sender as ListView;
+            if (listView != null)
+            {
+                listView.SelectedItem = null;  // disable selection
+            }
         }
+
     }
 }
