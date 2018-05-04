@@ -17,17 +17,20 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <StackLayout Orientation="Horizontal" Padding="5">
+                        <StackLayout 
+                            Orientation="Horizontal" 
+                            Padding="5">
                             <Label 
                                 Text="{Binding Autonym}"
                                 VerticalOptions="Center"/>
-                            <Button
+                            <Label
                                 Text="{Binding Title}"
                                 VerticalOptions="Center"
-                                TextColor="Blue"
-                                BackgroundColor="Silver"
-                                FontAttributes="None"
-                                Command="{Binding OpenUrlCommand}"/>
+                                TextColor="Blue">
+                                <Label.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding OpenUrlCommand}" />
+                                </Label.GestureRecognizers>
+                            </Label>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
