@@ -21,10 +21,13 @@
                             <Label 
                                 Text="{Binding Autonym}"
                                 VerticalOptions="Center"/>
-                            <Label 
+                            <Button
                                 Text="{Binding Title}"
+                                VerticalOptions="Center"
                                 TextColor="Blue"
-                                VerticalOptions="Center"/>
+                                BackgroundColor="Silver"
+                                FontAttributes="None"
+                                Command="{Binding OpenUrlCommand}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>

@@ -12,11 +12,11 @@ namespace WikiLanglinks
         }
         private bool _isLoading;
 
-        public IList<LangSearchResult> SearchResults
+        public IList<LangResultViewModel> SearchResults
         {
             get { return _searchResults; }
             set { SetValue(ref _searchResults, value); }
         }
-        private IList<LangSearchResult> _searchResults;
+        private IList<LangResultViewModel> _searchResults;
     }
 }

@@ -23,7 +23,8 @@ namespace WikiLanglinks
         public async Task<SearchResults> GetLanglinks(SearchRequest searchRequest)
         {
             var targetString = string.Join("|", searchRequest.Targets);
-            var response = await _httpClient.GetAsync($"/langlinks?search={searchRequest.SearchTerm}&source={searchRequest.Source}&target={targetString}");
+            var path = $"/langlinks?search={searchRequest.SearchTerm}&source={searchRequest.Source}&target={targetString}";
+            var response = await _httpClient.GetAsync(path);
             response.EnsureSuccessStatusCode();
             var responseString = await response.Content.ReadAsStringAsync();
             var results = JsonConvert.DeserializeObject<SearchResults>(responseString);

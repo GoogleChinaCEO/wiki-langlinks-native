@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Collections.ObjectModel;
+using System.Linq;
 
 namespace WikiLanglinks
 {
@@ -25,7 +25,13 @@ namespace WikiLanglinks
         private void OnLoadingFinished(SearchResults searchResults)
         {
             ResultsVM.IsLoading = false;
-            ResultsVM.SearchResults = searchResults.LangLinks;
+
+            if (searchResults.LangLinks != null)
+            {
+				ResultsVM.SearchResults = searchResults.LangLinks
+					.Select(LangResultViewModel.FromLangSearchResult)
+					.ToArray();
+            }
         }
     }
 }

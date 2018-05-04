@@ -64,6 +64,7 @@
     </Compile>
     <Compile Include="ViewModels\ResultsViewModel.cs" />
     <Compile Include="Converters\InverseBooleanConverter.cs" />
+    <Compile Include="ViewModels\LangResultViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core.Design">
