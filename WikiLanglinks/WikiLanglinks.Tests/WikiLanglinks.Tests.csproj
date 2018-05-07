@@ -33,12 +33,14 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\InverseBooleanConverterTests.cs" />
+    <Compile Include="ViewModels\BaseViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Converters\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WikiLanglinks\WikiLanglinks.csproj">

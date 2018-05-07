@@ -35,7 +35,7 @@ namespace WikiLanglinks
             {
                 SearchTerm = SearchTerm,
                 Source = "en",
-                Targets = new[] { "de", "es" }
+                Targets = new[] { "de", "es", "ru" }
             };
 
             LoadingStarted?.Invoke();
