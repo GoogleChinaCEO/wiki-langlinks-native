@@ -1,58 +1,97 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace WikiLanglinks
 {
     public class MainViewModel : BaseViewModel
     {
+        private readonly IWikiLanglinksApiClient _apiClient;
+        private readonly IAppPropertiesProvider _appPropertiesProvider;
+
         public MainViewModel(IWikiLanglinksApiClient apiClient, IAppPropertiesProvider appPropertiesProvider)
 		{
-			ResultsVM = new ResultsViewModel();
+            _apiClient = apiClient;
+            _appPropertiesProvider = appPropertiesProvider;
 
-            SearchVM = new SearchViewModel(apiClient, appPropertiesProvider);
-            SearchVM.LoadingStarted += OnLoadingStarted;
-            SearchVM.LoadingFinished += OnLoadingFinished;
-            SearchVM.ResetResults += OnResetResults;
+            SearchVM = new SearchViewModel();
+			SearchVM.SearchRequested += async () => await OnSearchRequested();
+   
+            ResultsVM = new ResultsViewModel();
+
+            MessagingCenter.Subscribe<LangResultViewModel>(this, EventNames.NewSourceLangRequested, async s => await OnNewSourceLangRequested(s));
 		}
-
 
         public SearchViewModel SearchVM { get; }
 
         public ResultsViewModel ResultsVM { get; }
-		
+
         public void Init()
         {
-            SearchVM.Init();
+            SearchVM.SourceLang = _appPropertiesProvider.SourceLanguage;
+            ResultsVM.TargetLangs = _appPropertiesProvider.TargetLanguages;
+            ResetSearchState();
         }
 
-        private void OnLoadingStarted()
+        private async Task OnSearchRequested()
+        {
+            var searchRequest = new SearchRequest
+            {
+                SearchTerm = SearchVM.SearchTerm,
+                Source = SearchVM.SourceLang.Id,
+                Targets = ResultsVM.TargetLangs.Select(tl => tl.Id).ToArray()
+            };
+
+            StartLoading();
+
+            var results = new SearchResults();
+            try
+            {
+                results = await _apiClient.GetLanglinks(searchRequest);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine($"Error: {e.Message}");
+            }
+            finally
+            {
+                FinishLoading(results);
+            }
+        }
+
+        private void StartLoading()
         {
             ResultsVM.IsLoading = true;
         }
 
-        private void OnLoadingFinished(SearchResults searchResults, IList<Language> targetLanguages)
+        private void FinishLoading(SearchResults searchResults)
         {
             ResultsVM.IsLoading = false;
-
-            ResultsVM.SearchResults = targetLanguages
-                .Select(l =>
-                {
-                    var result = searchResults.LangLinks?.FirstOrDefault(sr => sr.Lang == l.Id);
-                    return result == null 
-                        ? LangResultViewModel.FromLanguage(l) 
-                        : LangResultViewModel.FromLangSearchResult(result);
-                })
-                .ToArray();
+            ResultsVM.ApplySearchResults(searchResults);
         }
 
-        private void OnResetResults(IList<Language> targetLanguages)
+        private async Task OnNewSourceLangRequested(LangResultViewModel sender)
+        {
+            ResultsVM.ReplaceTargetLang(sender.Lang, SearchVM.SourceLang);
+            SearchVM.SourceLang = sender.ToLanguage();
+            ResetSearchState();
+            await PersistState();
+        }
+
+        private void ResetSearchState()
         {
             SearchVM.SearchTerm = null;
+            ResultsVM.ResetSearchResults();
+        }
 
-            ResultsVM.SearchResults = targetLanguages
-                .Select(LangResultViewModel.FromLanguage)
-                .ToArray();
+        private async Task PersistState()
+        {
+            _appPropertiesProvider.SourceLanguage = SearchVM.SourceLang;
+            _appPropertiesProvider.TargetLanguages = ResultsVM.TargetLangs;
+            await _appPropertiesProvider.SaveAsync();
         }
     }
 }

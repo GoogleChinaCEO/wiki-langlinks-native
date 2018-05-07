@@ -8,15 +8,24 @@ namespace WikiLanglinks
 {
     public class AppPropertiesProvider : IAppPropertiesProvider
     {
+        private static readonly Language DefaultSourceLanguage = new Language { Id = "en", Autonym = "English" };
+
+        private static readonly IList<Language> DefaultTargetLanguages = new List<Language>
+                                                {
+                                                    new Language { Id = "de", Autonym = "Deutsch" },
+                                                    new Language { Id = "es", Autonym = "español" },
+                                                    new Language { Id = "fr", Autonym = "français" }
+                                                };
+
         public Language SourceLanguage
         {
-            get { return GetValue<Language>("sourceLanguage"); }
+            get { return GetValue<Language>("sourceLanguage") ?? DefaultSourceLanguage; }
             set { SetValue("sourceLanguage", value); }
         }
 
         public IList<Language> TargetLanguages
         {
-            get { return GetValue<IList<Language>>("targetLanguages"); }
+            get { return GetValue<IList<Language>>("targetLanguages") ?? DefaultTargetLanguages; }
             set { SetValue("targetLanguages", value); }
         }
 

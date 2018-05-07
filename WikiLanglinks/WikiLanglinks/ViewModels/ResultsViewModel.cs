@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace WikiLanglinks
 {
@@ -19,5 +20,40 @@ namespace WikiLanglinks
         }
         private IList<LangResultViewModel> _searchResults;
 
+        public IList<Language> TargetLangs { get; set; }
+
+        public void ApplySearchResults(SearchResults searchResults)
+        {
+            SearchResults = TargetLangs
+                .Select(l =>
+                {
+                    var result = searchResults.LangLinks?.FirstOrDefault(sr => sr.Lang == l.Id);
+                    return result == null
+                        ? LangResultViewModel.FromLanguage(l)
+                        : LangResultViewModel.FromLangSearchResult(result);
+                })
+                .ToArray();
+            
+        }
+
+        public void ResetSearchResults()
+        {
+            SearchResults = TargetLangs
+                .Select(LangResultViewModel.FromLanguage)
+                .ToArray();            
+        }
+
+        public void ReplaceTargetLang(string langId, Language newLanguage)
+        {
+            var currentLanguage = TargetLangs.FirstOrDefault(t => t.Id == langId);
+            if (currentLanguage == null)
+            {
+                return;
+            }
+
+            var languageIndex = TargetLangs.IndexOf(currentLanguage);
+            TargetLangs.RemoveAt(languageIndex);
+            TargetLangs.Insert(languageIndex, newLanguage);
+        }
     }
 }
