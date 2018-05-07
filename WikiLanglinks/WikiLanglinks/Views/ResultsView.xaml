@@ -9,7 +9,7 @@
             AbsoluteLayout.LayoutBounds="0.5, 0.1, 50, 50"
             AbsoluteLayout.LayoutFlags="PositionProportional" />
         <ListView
-            IsVisible="{Binding Path=IsLoading, Converter={StaticResource InverseBooleanConverter}}"
+            IsVisible="{Binding Path=IsLoading, Converter={StaticResource inverseBooleanConverter}}"
             ItemsSource="{Binding SearchResults}"
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             AbsoluteLayout.LayoutFlags="All"
@@ -27,11 +27,11 @@
                                 WidthRequest="40"
                                 Command="{Binding MakeSourceLangCommand}"/>
                             <Label 
-                                Text="{Binding Autonym}"
-                                VerticalOptions="Center"
-                                TextColor="Black" />
+                                Style="{StaticResource langLabel}"
+                                Text="{Binding Autonym}" />
                             <Label
                                 Text="{Binding Title}"
+                                FontSize="16"
                                 VerticalOptions="Center"
                                 TextColor="Blue">
                                 <Label.GestureRecognizers>
