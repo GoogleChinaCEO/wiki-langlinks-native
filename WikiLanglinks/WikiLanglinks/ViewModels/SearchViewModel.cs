@@ -51,14 +51,13 @@ namespace WikiLanglinks
 
         private void Init()
         {
-            // TODO: read from App storage
             SourceLang = new Language { Id = "en", Autonym = "English" };
 
             TargetLangs = new List<Language>
             {
                 new Language { Id = "de", Autonym = "Deutsch" },
                 new Language { Id = "es", Autonym = "español" },
-                new Language { Id = "ru", Autonym = "русский" }
+                new Language { Id = "fr", Autonym = "français" }
             };
 
             ResetResults?.Invoke(TargetLangs);
@@ -75,6 +74,7 @@ namespace WikiLanglinks
             var newSourceLangIndex = TargetLangs.IndexOf(newSourceLang);
             TargetLangs.RemoveAt(newSourceLangIndex);
             TargetLangs.Insert(newSourceLangIndex, SourceLang);
+
             SourceLang = sender.ToLanguage();
 
             ResetResults?.Invoke(TargetLangs);

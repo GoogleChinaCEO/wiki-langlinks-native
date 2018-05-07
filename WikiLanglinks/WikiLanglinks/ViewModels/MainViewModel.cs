@@ -35,7 +35,9 @@ namespace WikiLanglinks
                     .Select(l =>
                     {
                         var result = searchResults.LangLinks.FirstOrDefault(sr => sr.Lang == l.Id);
-                        return result == null ? LangResultViewModel.FromLanguage(l) : LangResultViewModel.FromLangSearchResult(result);
+                        return result == null 
+                            ? LangResultViewModel.FromLanguage(l) 
+                            : LangResultViewModel.FromLangSearchResult(result);
                     })
                     .ToArray();
             }
@@ -43,6 +45,8 @@ namespace WikiLanglinks
 
         private void OnResetResults(IList<Language> targetLanguages)
         {
+            SearchVM.SearchTerm = null;
+
             ResultsVM.SearchResults = targetLanguages
                 .Select(LangResultViewModel.FromLanguage)
                 .ToArray();

@@ -28,7 +28,8 @@
                                 Command="{Binding MakeSourceLangCommand}"/>
                             <Label 
                                 Text="{Binding Autonym}"
-                                VerticalOptions="Center"/>
+                                VerticalOptions="Center"
+                                TextColor="Black" />
                             <Label
                                 Text="{Binding Title}"
                                 VerticalOptions="Center"

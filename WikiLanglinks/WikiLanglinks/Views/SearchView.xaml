@@ -2,9 +2,17 @@
 <ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
              x:Class="WikiLanglinks.SearchView">
-    <Entry
-        Placeholder="Search here ..."
-        Keyboard="Text"
-        Text="{Binding SearchTerm}"
-        Completed="OnSearchInputCompleted" />
+    <StackLayout
+        Orientation="Horizontal"
+        Padding="10">
+        <Label
+            Text="{Binding SourceLang.Autonym}"
+            TextColor="Black"
+            VerticalOptions="Center" />
+        <Entry
+            Placeholder="Search here ..."
+            Keyboard="Text"
+            Text="{Binding SearchTerm}"
+            Completed="OnSearchInputCompleted" />
+    </StackLayout>
 </ContentView>
