@@ -55,6 +55,7 @@ namespace WikiLanglinks
         public string Autonym { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
+
         public ICommand OpenUrlCommand { get; }
         public ICommand MakeSourceLangCommand { get; }
 

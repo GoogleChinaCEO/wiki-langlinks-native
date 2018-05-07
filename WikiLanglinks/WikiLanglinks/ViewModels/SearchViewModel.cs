@@ -11,19 +11,20 @@ namespace WikiLanglinks
     public class SearchViewModel : BaseViewModel
     {
         private readonly IWikiLanglinksApiClient _apiClient;
+        private readonly IAppPropertiesProvider _appPropertiesProvider;
 
+		public event Action<IList<Language>> ResetResults;
         public event Action LoadingStarted;
-
         public event Action<SearchResults, IList<Language>> LoadingFinished;
 
-        public event Action<IList<Language>> ResetResults;
-
-        public SearchViewModel(IWikiLanglinksApiClient apiClient)
+        public SearchViewModel(IWikiLanglinksApiClient apiClient, IAppPropertiesProvider appPropertiesProvider)
         {
 			_apiClient = apiClient;
+            _appPropertiesProvider = appPropertiesProvider;
+
             SearchCommand = new Command(async () => await Search());
-			Init();
-            MessagingCenter.Subscribe<LangResultViewModel>(this, EventNames.NewSourceLangRequested, OnNewSourceLangRequested);
+			
+            MessagingCenter.Subscribe<LangResultViewModel>(this, EventNames.NewSourceLangRequested, async s => await OnNewSourceLangRequested(s));
         }
 
         public ICommand SearchCommand { get; }
@@ -49,21 +50,23 @@ namespace WikiLanglinks
         }
         private IList<Language> _targetLangs;
 
-        private void Init()
+        public void Init()
         {
-            SourceLang = new Language { Id = "en", Autonym = "English" };
+            SourceLang = _appPropertiesProvider.SourceLanguage ?? 
+                                               new Language { Id = "en", Autonym = "English" };
 
-            TargetLangs = new List<Language>
-            {
-                new Language { Id = "de", Autonym = "Deutsch" },
-                new Language { Id = "es", Autonym = "español" },
-                new Language { Id = "fr", Autonym = "français" }
-            };
+            TargetLangs = _appPropertiesProvider.TargetLanguages ??
+                                                new List<Language>
+                                                {
+                                                    new Language { Id = "de", Autonym = "Deutsch" },
+                                                    new Language { Id = "es", Autonym = "español" },
+                                                    new Language { Id = "fr", Autonym = "français" }
+                                                };
 
             ResetResults?.Invoke(TargetLangs);
         }
 
-        private void OnNewSourceLangRequested(LangResultViewModel sender)
+        private async Task OnNewSourceLangRequested(LangResultViewModel sender)
         {
             var newSourceLang = TargetLangs.FirstOrDefault(t => t.Id == sender.Lang);
             if (newSourceLang == null)
@@ -78,6 +81,15 @@ namespace WikiLanglinks
             SourceLang = sender.ToLanguage();
 
             ResetResults?.Invoke(TargetLangs);
+
+            await PersistState();
+        }
+
+        private async Task PersistState()
+        {
+            _appPropertiesProvider.SourceLanguage = SourceLang;
+            _appPropertiesProvider.TargetLanguages = TargetLangs;
+            await _appPropertiesProvider.SaveAsync();
         }
 
         private async Task Search()

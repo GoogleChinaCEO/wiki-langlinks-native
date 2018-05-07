@@ -12,7 +12,7 @@ namespace WikiLanglinks
 
         protected override void OnStart()
         {
-            // Handle when your app starts
+            (MainPage as MainPage).Init();
         }
 
         protected override void OnSleep()

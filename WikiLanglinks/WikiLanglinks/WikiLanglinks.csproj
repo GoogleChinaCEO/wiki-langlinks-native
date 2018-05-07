@@ -67,6 +67,8 @@
     <Compile Include="ViewModels\LangResultViewModel.cs" />
     <Compile Include="Common\EventNames.cs" />
     <Compile Include="Models\Language.cs" />
+    <Compile Include="Services\IAppPropertiesProvider.cs" />
+    <Compile Include="Services\AppPropertiesProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core.Design">

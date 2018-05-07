@@ -7,7 +7,12 @@ namespace WikiLanglinks
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = new MainViewModel(new WikiLanglinksApiClient());
+            BindingContext = new MainViewModel(new WikiLanglinksApiClient(), new AppPropertiesProvider());
+        }
+
+        public void Init()
+        {
+            (BindingContext as MainViewModel).Init();
         }
     }
 }

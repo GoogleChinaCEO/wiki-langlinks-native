@@ -6,19 +6,25 @@ namespace WikiLanglinks
 {
     public class MainViewModel : BaseViewModel
     {
-        public MainViewModel(IWikiLanglinksApiClient apiClient)
+        public MainViewModel(IWikiLanglinksApiClient apiClient, IAppPropertiesProvider appPropertiesProvider)
 		{
 			ResultsVM = new ResultsViewModel();
 
-            SearchVM = new SearchViewModel(apiClient);
+            SearchVM = new SearchViewModel(apiClient, appPropertiesProvider);
             SearchVM.LoadingStarted += OnLoadingStarted;
             SearchVM.LoadingFinished += OnLoadingFinished;
             SearchVM.ResetResults += OnResetResults;
 		}
 
+
         public SearchViewModel SearchVM { get; }
 
         public ResultsViewModel ResultsVM { get; }
+		
+        public void Init()
+        {
+            SearchVM.Init();
+        }
 
         private void OnLoadingStarted()
         {
@@ -29,18 +35,15 @@ namespace WikiLanglinks
         {
             ResultsVM.IsLoading = false;
 
-            if (searchResults.LangLinks != null)
-            {
-                ResultsVM.SearchResults = targetLanguages
-                    .Select(l =>
-                    {
-                        var result = searchResults.LangLinks.FirstOrDefault(sr => sr.Lang == l.Id);
-                        return result == null 
-                            ? LangResultViewModel.FromLanguage(l) 
-                            : LangResultViewModel.FromLangSearchResult(result);
-                    })
-                    .ToArray();
-            }
+            ResultsVM.SearchResults = targetLanguages
+                .Select(l =>
+                {
+                    var result = searchResults.LangLinks?.FirstOrDefault(sr => sr.Lang == l.Id);
+                    return result == null 
+                        ? LangResultViewModel.FromLanguage(l) 
+                        : LangResultViewModel.FromLangSearchResult(result);
+                })
+                .ToArray();
         }
 
         private void OnResetResults(IList<Language> targetLanguages)
@@ -51,6 +54,5 @@ namespace WikiLanglinks
                 .Select(LangResultViewModel.FromLanguage)
                 .ToArray();
         }
-
     }
 }
