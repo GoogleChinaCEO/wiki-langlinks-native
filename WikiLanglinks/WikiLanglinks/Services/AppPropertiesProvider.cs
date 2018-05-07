@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 using Xamarin.Forms;
 
 namespace WikiLanglinks
@@ -9,30 +10,35 @@ namespace WikiLanglinks
     {
         public Language SourceLanguage
         {
-            get 
-            {
-                object language;
-                Application.Current.Properties.TryGetValue("sourceLanguage", out language);
-                return language as Language;
-            }
-            set 
-            { 
-                Application.Current.Properties["sourceLanguage"] = value; 
-            }
+            get { return GetValue<Language>("sourceLanguage"); }
+            set { SetValue("sourceLanguage", value); }
         }
 
         public IList<Language> TargetLanguages
         {
-            get
+            get { return GetValue<IList<Language>>("targetLanguages"); }
+            set { SetValue("targetLanguages", value); }
+        }
+
+        private T GetValue<T>(string key)
+        {
+            if (Application.Current.Properties.ContainsKey(key))
             {
-                object languages;
-                Application.Current.Properties.TryGetValue("targetLanguages", out languages);
-                return languages as IList<Language>;
+                var obj = Application.Current.Properties[key];
+                if (obj == null)
+                {
+                    return default(T);
+                }
+
+                return JsonConvert.DeserializeObject<T>(obj.ToString());
             }
-            set
-            {
-                Application.Current.Properties["targetLanguages"] = value;
-            }
+
+            return default(T);
+        }
+
+        private void SetValue<T>(string key, T value)
+        {
+            Application.Current.Properties[key] = JsonConvert.SerializeObject(value);
         }
 
         public async Task SaveAsync()
