@@ -20,6 +20,11 @@
                         <StackLayout 
                             Orientation="Horizontal" 
                             Padding="5">
+                            <Button 
+                                Image="up_down_arrow.png"
+                                BackgroundColor="Transparent"
+                                Scale="0.5"
+                                WidthRequest="40"/>
                             <Label 
                                 Text="{Binding Autonym}"
                                 VerticalOptions="Center"/>
