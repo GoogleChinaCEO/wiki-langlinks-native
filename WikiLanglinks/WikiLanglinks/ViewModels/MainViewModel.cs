@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace WikiLanglinks
@@ -7,10 +8,12 @@ namespace WikiLanglinks
     {
         public MainViewModel(IWikiLanglinksApiClient apiClient)
 		{
+			ResultsVM = new ResultsViewModel();
+
             SearchVM = new SearchViewModel(apiClient);
-            ResultsVM = new ResultsViewModel();
             SearchVM.LoadingStarted += OnLoadingStarted;
             SearchVM.LoadingFinished += OnLoadingFinished;
+            SearchVM.ResetResults += OnResetResults;
 		}
 
         public SearchViewModel SearchVM { get; }
@@ -22,16 +25,28 @@ namespace WikiLanglinks
             ResultsVM.IsLoading = true;
         }
 
-        private void OnLoadingFinished(SearchResults searchResults)
+        private void OnLoadingFinished(SearchResults searchResults, IList<Language> targetLanguages)
         {
             ResultsVM.IsLoading = false;
 
             if (searchResults.LangLinks != null)
             {
-				ResultsVM.SearchResults = searchResults.LangLinks
-					.Select(LangResultViewModel.FromLangSearchResult)
-					.ToArray();
+                ResultsVM.SearchResults = targetLanguages
+                    .Select(l =>
+                    {
+                        var result = searchResults.LangLinks.FirstOrDefault(sr => sr.Lang == l.Id);
+                        return result == null ? LangResultViewModel.FromLanguage(l) : LangResultViewModel.FromLangSearchResult(result);
+                    })
+                    .ToArray();
             }
         }
+
+        private void OnResetResults(IList<Language> targetLanguages)
+        {
+            ResultsVM.SearchResults = targetLanguages
+                .Select(LangResultViewModel.FromLanguage)
+                .ToArray();
+        }
+
     }
 }

@@ -18,5 +18,6 @@ namespace WikiLanglinks
             set { SetValue(ref _searchResults, value); }
         }
         private IList<LangResultViewModel> _searchResults;
+
     }
 }

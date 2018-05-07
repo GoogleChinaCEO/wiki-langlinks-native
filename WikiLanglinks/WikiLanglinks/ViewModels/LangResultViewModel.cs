@@ -9,17 +9,7 @@ namespace WikiLanglinks
         protected LangResultViewModel()
         {
             OpenUrlCommand = new Command(OpenUrl);
-        }
-
-        public string Lang { get; set; }
-        public string Autonym { get; set; }
-        public string Title { get; set; }
-        public string Url { get; set; }
-        public ICommand OpenUrlCommand { get; }
-
-        private void OpenUrl()
-        {
-            Device.OpenUri(new Uri(Url));
+            MakeSourceLangCommand = new Command(MakeSourceLang);
         }
 
         public static LangResultViewModel FromLangSearchResult(LangSearchResult langSearchResult)
@@ -36,6 +26,46 @@ namespace WikiLanglinks
                 Title = langSearchResult.Title,
                 Url = langSearchResult.Url
             };
+        }
+
+        public static LangResultViewModel FromLanguage(Language language)
+        {
+            if (language == null)
+            {
+                throw new ArgumentNullException(nameof(language));
+            }
+
+            return new LangResultViewModel
+            {
+                Lang = language.Id,
+                Autonym = language.Autonym
+            };
+        }
+
+        public Language ToLanguage()
+        {
+            return new Language
+            {
+                Id = this.Lang,
+                Autonym = this.Autonym
+            };
+        }
+
+        public string Lang { get; set; }
+        public string Autonym { get; set; }
+        public string Title { get; set; }
+        public string Url { get; set; }
+        public ICommand OpenUrlCommand { get; }
+        public ICommand MakeSourceLangCommand { get; }
+
+        private void OpenUrl()
+        {
+            Device.OpenUri(new Uri(Url));
+        }
+
+        private void MakeSourceLang()
+        {
+            MessagingCenter.Send(this, EventNames.NewSourceLangRequested);
         }
     }
 }

@@ -24,7 +24,8 @@
                                 Image="up_down_arrow.png"
                                 BackgroundColor="Transparent"
                                 Scale="0.5"
-                                WidthRequest="40"/>
+                                WidthRequest="40"
+                                Command="{Binding MakeSourceLangCommand}"/>
                             <Label 
                                 Text="{Binding Autonym}"
                                 VerticalOptions="Center"/>
