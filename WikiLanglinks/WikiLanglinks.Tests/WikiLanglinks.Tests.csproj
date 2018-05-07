@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Converters\InverseBooleanConverterTests.cs" />
     <Compile Include="ViewModels\BaseViewModelTests.cs" />
+    <Compile Include="ViewModels\ResultsViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

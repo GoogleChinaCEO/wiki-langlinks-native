@@ -22,6 +22,13 @@ namespace WikiLanglinks
 
         public IList<Language> TargetLangs { get; set; }
 
+        public void ResetSearchResults()
+        {
+            SearchResults = TargetLangs
+                .Select(LangResultViewModel.FromLanguage)
+                .ToArray();
+        }
+
         public void ApplySearchResults(SearchResults searchResults)
         {
             SearchResults = TargetLangs
@@ -34,13 +41,6 @@ namespace WikiLanglinks
                 })
                 .ToArray();
             
-        }
-
-        public void ResetSearchResults()
-        {
-            SearchResults = TargetLangs
-                .Select(LangResultViewModel.FromLanguage)
-                .ToArray();            
         }
 
         public void ReplaceTargetLang(string langId, Language newLanguage)
