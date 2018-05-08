@@ -23,7 +23,8 @@ namespace WikiLanglinks
 
 		private async Task OnSelectTargetLangsClicked(object sender, System.EventArgs e)
 		{
-			await Navigation.PushAsync(new SelectTargetLangsPage(ViewModel.ResultsVM.TargetLangs));
+			var selectionPage = new SelectTargetLangsPage(ViewModel.ResultsVM.TargetLangs, new[] { ViewModel.SearchVM.SourceLang });
+			await Navigation.PushAsync(selectionPage);
 		}
     }
 }

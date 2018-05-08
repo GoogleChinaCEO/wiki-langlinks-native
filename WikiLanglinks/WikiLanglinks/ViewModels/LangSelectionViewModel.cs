@@ -34,5 +34,12 @@ namespace WikiLanglinks
 			set { SetValue(ref _isSelected, value); }
 		}
 		private bool _isSelected;
+
+		public bool CanSelect
+        {
+			get { return _canSelect; }
+			set { SetValue(ref _canSelect, value); }
+        }
+        private bool _canSelect = true;
 	}
 }

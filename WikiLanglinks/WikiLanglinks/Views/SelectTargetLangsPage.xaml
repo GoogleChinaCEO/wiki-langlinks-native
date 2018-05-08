@@ -15,7 +15,8 @@
                             Orientation="Horizontal" 
                             Padding="5">
                             <Switch
-                                IsToggled="{Binding IsSelected}" />
+                                IsToggled="{Binding IsSelected}"
+                                IsEnabled="{Binding CanSelect}"/>
                             <Label                                
                                 Style="{StaticResource langLabel}"
                                 Margin="20,0"

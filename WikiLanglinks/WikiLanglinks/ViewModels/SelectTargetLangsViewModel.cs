@@ -33,17 +33,26 @@ namespace WikiLanglinks
 			new Language { Id = "zh", Autonym = "中文" }
 		};
 
-		public SelectTargetLangsViewModel(IEnumerable<Language> targetLanguages)
+		public SelectTargetLangsViewModel(IEnumerable<Language> targetLanguages, IEnumerable<Language> preSelectedLanguages)
 		{
-			var currentLanguages = _allLanguages.Select(l => 
-			{
-				var result = LangSelectionViewModel.FromLanguage(l);
-				if (targetLanguages.Any(tl => tl.Id == result.Lang))
-				{					
-					result.IsSelected = true;
-                }
-				return result;
-			}).OrderBy(l => l.Lang);
+			var currentLanguages = _allLanguages
+				.Select(l => 
+    			{
+    				var result = LangSelectionViewModel.FromLanguage(l);
+    				if (targetLanguages.Any(tl => tl.Id == result.Lang))
+    				{					
+    					result.IsSelected = true;
+                    }
+
+				    if (preSelectedLanguages.Any(tl => tl.Id == result.Lang))
+                    {
+					    result.IsSelected = true;
+					    result.CanSelect = false;
+                    }
+
+    				return result;
+    			})
+				.OrderBy(l => l.Lang);
 
 			Languages = new ObservableCollection<LangSelectionViewModel>(currentLanguages);
 			ApplyCommand = new Command(Apply);
@@ -63,19 +72,19 @@ namespace WikiLanglinks
 
 		private void Apply()
 		{
-			var selectedLanguages = Languages
-				.Where(l => l.IsSelected)
+			var newTargetLanguages = Languages
+				.Where(l => l.IsSelected && l.CanSelect)
 				.Select(l => l.ToLanguage())
 				.ToArray();
 
-			if (selectedLanguages.Length < MinSelectedLangsCount || selectedLanguages.Length > MaxSelectedLangsCount)
+			if (newTargetLanguages.Length < MinSelectedLangsCount || newTargetLanguages.Length > MaxSelectedLangsCount)
 			{
 				var message = $"Please select between {MinSelectedLangsCount} and {MaxSelectedLangsCount} languages.";
 				SelectionRejected?.Invoke(message);
 				return;
 			}
 
-			MessagingCenter.Send(this, EventNames.TargetLangsSelected, selectedLanguages);
+			MessagingCenter.Send(this, EventNames.TargetLangsSelected, newTargetLanguages);
 
 			SelectionApplied?.Invoke();
 		}

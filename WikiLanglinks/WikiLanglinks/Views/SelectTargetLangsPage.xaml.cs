@@ -7,10 +7,10 @@ namespace WikiLanglinks
 {
     public partial class SelectTargetLangsPage : ContentPage
     {
-		public SelectTargetLangsPage(IEnumerable<Language> targetLanguages)
+		public SelectTargetLangsPage(IEnumerable<Language> targetLanguages, IEnumerable<Language> preSelectedLanguages)
         {
             InitializeComponent();
-			var vm = new SelectTargetLangsViewModel(targetLanguages);
+			var vm = new SelectTargetLangsViewModel(targetLanguages, preSelectedLanguages);
             vm.SelectionApplied += async () => await OnSelectionApplied();
             vm.SelectionRejected += async message => await OnSelectionRejected(message);
 			BindingContext = vm;
