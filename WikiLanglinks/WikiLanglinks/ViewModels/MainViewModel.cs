@@ -23,6 +23,7 @@ namespace WikiLanglinks
 
 			MessagingCenter.Subscribe<SearchViewModel>(this, EventNames.SearchRequested, async sender => await OnSearchRequested(sender));
 			MessagingCenter.Subscribe<LangResultViewModel>(this, EventNames.NewSourceLangRequested, async sender => await OnNewSourceLangRequested(sender));
+			MessagingCenter.Subscribe<SelectTargetLangsViewModel, Language[]>(this, EventNames.TargetLangsSelected, async (sender, args) => await OnTargetLangsSelected(sender, args));
 		}
 
 		public SearchViewModel SearchVM { get; }
@@ -92,6 +93,13 @@ namespace WikiLanglinks
             _appPropertiesProvider.SourceLanguage = SearchVM.SourceLang;
             _appPropertiesProvider.TargetLanguages = ResultsVM.TargetLangs;
             await _appPropertiesProvider.SaveAsync();
+        }
+
+		private async Task OnTargetLangsSelected(SelectTargetLangsViewModel sender, Language[] languages)
+        {
+			ResultsVM.TargetLangs = languages;
+			ResetSearchState();
+			await PersistState();
         }
     }
 }

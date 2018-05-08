@@ -3,5 +3,31 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     x:Class="WikiLanglinks.SelectTargetLangsPage">
-
+    <StackLayout
+        Padding="20">
+        <ListView
+            ItemsSource="{Binding Languages}"
+            ItemTapped="OnItemTapped">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout 
+                            Orientation="Horizontal" 
+                            Padding="5">
+                            <Switch
+                                IsToggled="{Binding IsSelected}" />
+                            <Label                                
+                                Style="{StaticResource langLabel}"
+                                Margin="20,0"
+                                Text="{Binding Autonym}"/>
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button 
+            Text="Apply"
+            Style="{StaticResource actionButton}"
+            Command="{Binding ApplyCommand}"/>
+    </StackLayout>
 </ContentPage>

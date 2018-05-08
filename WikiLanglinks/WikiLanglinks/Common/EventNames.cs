@@ -6,5 +6,6 @@ namespace WikiLanglinks
     {
         public static readonly string SearchRequested = "SearchRequested";
         public static readonly string NewSourceLangRequested = "NewSourceLangRequested";
+		public static readonly string TargetLangsSelected = "TargetLangsSelected";
     }
 }

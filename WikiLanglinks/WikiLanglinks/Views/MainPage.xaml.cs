@@ -11,14 +11,19 @@ namespace WikiLanglinks
             BindingContext = new MainViewModel(new WikiLanglinksApiClient(), new AppPropertiesProvider());
         }
 
+		private MainViewModel ViewModel
+		{
+			get { return BindingContext as MainViewModel; }
+		}
+
         public void Init()
         {
-            (BindingContext as MainViewModel).Init();
+			ViewModel.Init();
         }
 
 		private async Task OnSelectTargetLangsClicked(object sender, System.EventArgs e)
 		{
-			await Navigation.PushAsync(new SelectTargetLangsPage());
+			await Navigation.PushAsync(new SelectTargetLangsPage(ViewModel.ResultsVM.TargetLangs));
 		}
     }
 }

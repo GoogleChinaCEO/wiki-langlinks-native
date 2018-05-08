@@ -8,9 +8,8 @@
         <local:SearchView BindingContext="{Binding SearchVM}" />
         <local:ResultsView BindingContext="{Binding ResultsVM}" />
         <Button 
+            Style="{StaticResource actionButton}"
             Text="Select languages"
-            HorizontalOptions="Start"
-            Margin="20,0"
             Clicked="OnSelectTargetLangsClicked" />
     </StackLayout>
 </ContentPage>
