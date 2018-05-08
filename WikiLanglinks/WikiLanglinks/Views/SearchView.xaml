@@ -9,6 +9,7 @@
             Style="{StaticResource langLabel}"
             Text="{Binding SourceLang.Autonym}" />
         <Entry
+            HorizontalOptions="FillAndExpand"
             Margin="20,0,0,0"
             Placeholder="Search here ..."
             Keyboard="Text"
