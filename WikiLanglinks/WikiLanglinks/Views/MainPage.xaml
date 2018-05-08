@@ -7,5 +7,10 @@
     <StackLayout Padding="0,20,0,0">
         <local:SearchView BindingContext="{Binding SearchVM}" />
         <local:ResultsView BindingContext="{Binding ResultsVM}" />
+        <Button 
+            Text="Select languages"
+            HorizontalOptions="Start"
+            Margin="20,0"
+            Clicked="OnSelectTargetLangsClicked" />
     </StackLayout>
 </ContentPage>

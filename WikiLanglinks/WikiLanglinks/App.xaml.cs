@@ -7,12 +7,12 @@ namespace WikiLanglinks
         public App()
         {
             InitializeComponent();
-            MainPage = new MainPage();
+			MainPage = new NavigationPage(new MainPage());
         }
 
         protected override void OnStart()
         {
-            (MainPage as MainPage).Init();
+			((MainPage as NavigationPage).CurrentPage as MainPage).Init();
         }
 
         protected override void OnSleep()

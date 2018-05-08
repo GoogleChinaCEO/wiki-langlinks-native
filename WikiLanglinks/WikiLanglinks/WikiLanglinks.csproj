@@ -39,6 +39,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\SelectTargetLangsPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
@@ -69,6 +73,10 @@
     <Compile Include="Models\Language.cs" />
     <Compile Include="Services\IAppPropertiesProvider.cs" />
     <Compile Include="Services\AppPropertiesProvider.cs" />
+    <Compile Include="Views\SelectTargetLangsPage.xaml.cs">
+      <DependentUpon>SelectTargetLangsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\SelectTargetLangsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Xamarin.Forms.Core.Design">
