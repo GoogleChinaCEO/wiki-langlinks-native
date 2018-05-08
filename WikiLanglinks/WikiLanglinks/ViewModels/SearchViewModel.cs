@@ -11,8 +11,6 @@ namespace WikiLanglinks
             SearchCommand = new Command(Search);
         }
 		
-        public event Action SearchRequested;
-
         public ICommand SearchCommand { get; }
 
         public string SearchTerm
@@ -31,7 +29,7 @@ namespace WikiLanglinks
 
         private void Search()
         {
-            SearchRequested?.Invoke();
+			MessagingCenter.Send(this, EventNames.SearchRequested);
         }
     }
 }

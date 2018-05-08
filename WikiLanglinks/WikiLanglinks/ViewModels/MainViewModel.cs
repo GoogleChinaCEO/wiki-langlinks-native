@@ -17,12 +17,11 @@ namespace WikiLanglinks
             _apiClient = apiClient;
             _appPropertiesProvider = appPropertiesProvider;
 
-            SearchVM = new SearchViewModel();
-			SearchVM.SearchRequested += async () => await OnSearchRequested();
-   
+            SearchVM = new SearchViewModel();   
             ResultsVM = new ResultsViewModel();
 
-            MessagingCenter.Subscribe<LangResultViewModel>(this, EventNames.NewSourceLangRequested, async s => await OnNewSourceLangRequested(s));
+			MessagingCenter.Subscribe<SearchViewModel>(this, EventNames.SearchRequested, async sender => await OnSearchRequested(sender));
+			MessagingCenter.Subscribe<LangResultViewModel>(this, EventNames.NewSourceLangRequested, async sender => await OnNewSourceLangRequested(sender));
 		}
 
         public SearchViewModel SearchVM { get; }
@@ -36,7 +35,7 @@ namespace WikiLanglinks
             ResetSearchState();
         }
 
-        private async Task OnSearchRequested()
+        private async Task OnSearchRequested(SearchViewModel sender)
         {
             var searchRequest = new SearchRequest
             {
