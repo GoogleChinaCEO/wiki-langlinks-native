@@ -66,6 +66,7 @@
     <Compile Include="ViewModels\BaseViewModelTests.cs" />
     <Compile Include="ViewModels\ResultsViewModelTests.cs" />
     <Compile Include="ViewModels\SearchViewModelTests.cs" />
+    <Compile Include="ViewModels\MainViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
