@@ -11,8 +11,9 @@ namespace WikiLanglinks
         {
             InitializeComponent();
 			var vm = new SelectTargetLangsViewModel(targetLanguages);
+            vm.SelectionApplied += async () => await OnSelectionApplied();
+            vm.SelectionRejected += async message => await OnSelectionRejected(message);
 			BindingContext = vm;
-			vm.SelectionApplied += async () => await OnSelectionApplied();
         }
 
 		private void OnItemTapped(object sender, ItemTappedEventArgs e)
@@ -27,6 +28,11 @@ namespace WikiLanglinks
 		private async Task OnSelectionApplied()
 		{
 			await Navigation.PopAsync();
+		}
+
+		private async Task OnSelectionRejected(string message)
+		{
+			await DisplayAlert("Cannot apply selection", message, "OK");
 		}
     }
 }

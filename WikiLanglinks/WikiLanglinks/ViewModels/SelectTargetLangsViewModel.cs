@@ -9,6 +9,9 @@ namespace WikiLanglinks
 {
 	public class SelectTargetLangsViewModel : BaseViewModel
     {
+		private const int MinSelectedLangsCount = 1;
+		private const int MaxSelectedLangsCount = 5;
+
 		private static IList<Language> _allLanguages = new[] 
 		{
 			new Language { Id = "en", Autonym = "English" },
@@ -47,6 +50,7 @@ namespace WikiLanglinks
 		}
 
 		public event Action SelectionApplied;
+		public event Action<string> SelectionRejected;
 
 		public ICommand ApplyCommand { get; }
 
@@ -63,6 +67,13 @@ namespace WikiLanglinks
 				.Where(l => l.IsSelected)
 				.Select(l => l.ToLanguage())
 				.ToArray();
+
+			if (selectedLanguages.Length < MinSelectedLangsCount || selectedLanguages.Length > MaxSelectedLangsCount)
+			{
+				var message = $"Please select between {MinSelectedLangsCount} and {MaxSelectedLangsCount} languages.";
+				SelectionRejected?.Invoke(message);
+				return;
+			}
 
 			MessagingCenter.Send(this, EventNames.TargetLangsSelected, selectedLanguages);
 
