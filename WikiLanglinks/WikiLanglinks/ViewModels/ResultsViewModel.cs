@@ -20,7 +20,7 @@ namespace WikiLanglinks
         }
         private IList<LangResultViewModel> _searchResults;
 
-        public IList<Language> TargetLangs { get; set; }
+        public List<Language> TargetLangs { get; set; }
 
         public void ResetSearchResults()
         {

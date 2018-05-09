@@ -23,7 +23,7 @@ namespace WikiLanglinks
 
 			MessagingCenter.Subscribe<SearchViewModel>(this, EventNames.SearchRequested, async sender => await OnSearchRequested(sender));
 			MessagingCenter.Subscribe<LangResultViewModel>(this, EventNames.NewSourceLangRequested, async sender => await OnNewSourceLangRequested(sender));
-			MessagingCenter.Subscribe<SelectTargetLangsViewModel, Language[]>(this, EventNames.TargetLangsSelected, async (sender, args) => await OnTargetLangsSelected(sender, args));
+			MessagingCenter.Subscribe<SelectTargetLangsViewModel, List<Language>>(this, EventNames.TargetLangsSelected, async (sender, args) => await OnTargetLangsSelected(sender, args));
 		}
 
 		public SearchViewModel SearchVM { get; }
@@ -33,7 +33,7 @@ namespace WikiLanglinks
         public void Init()
         {
             SearchVM.SourceLang = _appPropertiesProvider.SourceLanguage;
-            ResultsVM.TargetLangs = _appPropertiesProvider.TargetLanguages;
+			ResultsVM.TargetLangs = _appPropertiesProvider.TargetLanguages.ToList();
             ResetSearchState();
         }
 
@@ -95,7 +95,7 @@ namespace WikiLanglinks
             await _appPropertiesProvider.SaveAsync();
         }
 
-		private async Task OnTargetLangsSelected(SelectTargetLangsViewModel sender, Language[] languages)
+		private async Task OnTargetLangsSelected(SelectTargetLangsViewModel sender, List<Language> languages)
         {
 			ResultsVM.TargetLangs = languages;
 			ResetSearchState();

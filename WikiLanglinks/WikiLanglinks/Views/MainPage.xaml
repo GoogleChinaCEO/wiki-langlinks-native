@@ -4,10 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" 
     xmlns:local="clr-namespace:WikiLanglinks"
     x:Class="WikiLanglinks.MainPage">
-    <StackLayout Padding="0,20,0,0">
+    <StackLayout Padding="0,20,0,20">
         <local:SearchView BindingContext="{Binding SearchVM}" />
         <local:ResultsView BindingContext="{Binding ResultsVM}" />
         <Button 
+            VerticalOptions="EndAndExpand"
             Style="{StaticResource actionButton}"
             Text="Select languages"
             Clicked="OnSelectTargetLangsClicked" />

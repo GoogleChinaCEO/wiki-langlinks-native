@@ -79,9 +79,9 @@ namespace WikiLanglinks
 			var newTargetLanguages = Languages
 				.Where(l => l.IsSelected && l.CanSelect)
 				.Select(l => l.ToLanguage())
-				.ToArray();
+				.ToList();
 
-			if (newTargetLanguages.Length < MinSelectedLangsCount || newTargetLanguages.Length > MaxSelectedLangsCount)
+			if (newTargetLanguages.Count < MinSelectedLangsCount || newTargetLanguages.Count > MaxSelectedLangsCount)
 			{
 				var message = $"Please select between {MinSelectedLangsCount} and {MaxSelectedLangsCount} languages.";
 				SelectionRejected?.Invoke(message);

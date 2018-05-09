@@ -1,4 +1,4 @@
-﻿using System.Threading.Tasks;
+﻿using System;
 using Xamarin.Forms;
 
 namespace WikiLanglinks
@@ -7,7 +7,7 @@ namespace WikiLanglinks
     {
 		public MainPage()
         {
-            InitializeComponent();
+			InitializeComponent();
             BindingContext = new MainViewModel(new WikiLanglinksApiClient(), new AppPropertiesProvider());
         }
 
@@ -21,10 +21,10 @@ namespace WikiLanglinks
 			ViewModel.Init();
         }
 
-		private async Task OnSelectTargetLangsClicked(object sender, System.EventArgs e)
+		private void OnSelectTargetLangsClicked(object sender, EventArgs e)
 		{
 			var selectionPage = new SelectTargetLangsPage(ViewModel.ResultsVM.TargetLangs, new[] { ViewModel.SearchVM.SourceLang });
-			await Navigation.PushAsync(selectionPage);
+			Navigation.PushAsync(selectionPage);
 		}
-    }
+	}
 }
