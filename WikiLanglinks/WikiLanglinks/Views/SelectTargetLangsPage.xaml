@@ -7,7 +7,8 @@
         Padding="20,20,0,20">
         <ListView
             ItemsSource="{Binding Languages}"
-            ItemTapped="OnItemTapped">
+            ItemTapped="OnItemTapped"
+            SeparatorVisibility="None">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>

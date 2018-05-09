@@ -11,6 +11,7 @@
         <ListView
             IsVisible="{Binding Path=IsLoading, Converter={StaticResource inverseBooleanConverter}}"
             ItemsSource="{Binding SearchResults}"
+            SeparatorVisibility="None"
             AbsoluteLayout.LayoutBounds="0, 0, 1, 1"
             AbsoluteLayout.LayoutFlags="All"
             ItemTapped="OnItemTapped">
