@@ -45,6 +45,7 @@
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Compile Include="Services\ITextToSpeech.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App.xaml.cs">
