@@ -8,11 +8,13 @@ namespace WikiLanglinks.Droid.Services
 {
 	public class TextToSpeechImpl : Java.Lang.Object, TextToSpeech.IOnInitListener, ITextToSpeech
 	{
-		TextToSpeech speaker;
-        string toSpeak;
-		bool isLanguageAvailable;
+		private TextToSpeech speaker;
+        private string toSpeak;
+		private bool isLanguageAvailable;
 
-        public void Speak(string text, string language)
+		public event Action<string> LanguageNotAvailable;
+
+		public void Speak(string text, string language)
         {
 			var locale = GetLocale(language);
 			toSpeak = text;
@@ -29,18 +31,15 @@ namespace WikiLanglinks.Droid.Services
             }
             else
             {
-				if (isLanguageAvailable)
-				{					
-					speaker.Speak(toSpeak, QueueMode.Flush, null, null);
-                }
+				SpeakIfPossible();
             }
         }
 
         public void OnInit(OperationResult status)
         {
-			if (status.Equals(OperationResult.Success) && isLanguageAvailable)
+			if (status.Equals(OperationResult.Success))
             {
-				speaker.Speak(toSpeak, QueueMode.Flush, null, null);
+				SpeakIfPossible();
             }
         }
 
@@ -48,9 +47,23 @@ namespace WikiLanglinks.Droid.Services
 		{
 			switch (language)
 			{
+				case "en":
+					return Java.Util.Locale.ForLanguageTag("en-US");
 				default:
 					return Java.Util.Locale.ForLanguageTag(language);
 			}
+		}
+
+		private void SpeakIfPossible()
+		{
+			if (isLanguageAvailable)
+            {
+                speaker.Speak(toSpeak, QueueMode.Flush, null, null);
+            }
+            else
+            {
+                LanguageNotAvailable?.Invoke("No voice found for language.");
+            }
 		}
     }   
 }
