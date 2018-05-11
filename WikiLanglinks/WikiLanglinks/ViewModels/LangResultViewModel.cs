@@ -6,10 +6,11 @@ namespace WikiLanglinks
 {
     public class LangResultViewModel : BaseViewModel
     {
-        protected LangResultViewModel()
+		protected LangResultViewModel()
         {
             OpenUrlCommand = new Command(OpenUrl);
             MakeSourceLangCommand = new Command(MakeSourceLang);
+			SpeakCommand = new Command(Speak);
         }
 
         public static LangResultViewModel FromLangSearchResult(LangSearchResult langSearchResult)
@@ -58,6 +59,7 @@ namespace WikiLanglinks
 
         public ICommand OpenUrlCommand { get; }
         public ICommand MakeSourceLangCommand { get; }
+		public ICommand SpeakCommand { get; }
 
         private void OpenUrl()
         {
@@ -68,5 +70,11 @@ namespace WikiLanglinks
         {
             MessagingCenter.Send(this, EventNames.NewSourceLangRequested);
         }
+
+        private void Speak()
+		{
+			var textToSpeech = DependencyService.Get<ITextToSpeech>();
+			textToSpeech.Speak(Title, Lang);
+		}
     }
 }

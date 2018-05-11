@@ -14,13 +14,13 @@ namespace WikiLanglinks.Droid.Services
 
         public void Speak(string text, string language)
         {
-			var locale = new Java.Util.Locale(language);
+			var locale = GetLocale(language);
 			toSpeak = text;
-			isLanguageAvailable = speaker.IsLanguageAvailable(locale) >= 0;
 
             if (speaker == null)
             {
                 speaker = new TextToSpeech(MainActivity.Instance, this);
+				isLanguageAvailable = speaker.IsLanguageAvailable(locale) >= 0;
 
 				if (isLanguageAvailable)
 				{					
@@ -43,5 +43,14 @@ namespace WikiLanglinks.Droid.Services
 				speaker.Speak(toSpeak, QueueMode.Flush, null, null);
             }
         }
+
+		private static Java.Util.Locale GetLocale(string language)
+		{
+			switch (language)
+			{
+				default:
+					return Java.Util.Locale.ForLanguageTag(language);
+			}
+		}
     }   
 }

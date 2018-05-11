@@ -30,6 +30,12 @@
                             <Label 
                                 Style="{StaticResource langLabel}"
                                 Text="{Binding Autonym}" />
+                            <Button 
+                                Image="up_down_arrow.png"
+                                BackgroundColor="Transparent"
+                                Scale="0.5"
+                                WidthRequest="40"
+                                Command="{Binding SpeakCommand}"/>
                             <Label
                                 Text="{Binding Title}"
                                 FontSize="16"
