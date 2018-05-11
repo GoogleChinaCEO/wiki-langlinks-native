@@ -10,7 +10,7 @@ namespace WikiLanglinks
         {
             OpenUrlCommand = new Command(OpenUrl);
             MakeSourceLangCommand = new Command(MakeSourceLang);
-			SpeakCommand = new Command(Speak);
+			SpeakCommand = new Command(Speak, () => CanSpeak);
         }
 
         public static LangResultViewModel FromLangSearchResult(LangSearchResult langSearchResult)
@@ -56,6 +56,11 @@ namespace WikiLanglinks
         public string Autonym { get; set; }
         public string Title { get; set; }
         public string Url { get; set; }
+
+        public bool CanSpeak
+		{
+			get { return !string.IsNullOrWhiteSpace(Title); }
+		}
 
         public ICommand OpenUrlCommand { get; }
         public ICommand MakeSourceLangCommand { get; }

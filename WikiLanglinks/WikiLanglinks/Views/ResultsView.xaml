@@ -30,12 +30,6 @@
                             <Label 
                                 Style="{StaticResource langLabel}"
                                 Text="{Binding Autonym}" />
-                            <Button 
-                                Image="play.png"
-                                BackgroundColor="Transparent"
-                                Scale="0.5"
-                                WidthRequest="40"
-                                Command="{Binding SpeakCommand}"/>
                             <Label
                                 Text="{Binding Title}"
                                 FontSize="16"
@@ -45,6 +39,14 @@
                                     <TapGestureRecognizer Command="{Binding OpenUrlCommand}" />
                                 </Label.GestureRecognizers>
                             </Label>
+                            <Button 
+                                Image="play.png"
+                                HorizontalOptions="End"
+                                BackgroundColor="Transparent"
+                                Scale="0.5"
+                                WidthRequest="40"
+                                IsVisible="{Binding CanSpeak}"
+                                Command="{Binding SpeakCommand}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
