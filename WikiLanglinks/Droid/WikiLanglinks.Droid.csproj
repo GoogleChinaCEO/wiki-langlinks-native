@@ -150,6 +150,10 @@
     <AndroidResource Include="Resources\drawable-hdpi\up_down_arrow.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\up_down_arrow.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\up_down_arrow.png" />
+    <AndroidResource Include="Resources\drawable\play.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\play.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\play.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\play.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Services\" />

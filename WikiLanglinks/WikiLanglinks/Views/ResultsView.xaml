@@ -31,7 +31,7 @@
                                 Style="{StaticResource langLabel}"
                                 Text="{Binding Autonym}" />
                             <Button 
-                                Image="up_down_arrow.png"
+                                Image="play.png"
                                 BackgroundColor="Transparent"
                                 Scale="0.5"
                                 WidthRequest="40"
