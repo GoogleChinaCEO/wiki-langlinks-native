@@ -8,8 +8,6 @@ namespace WikiLanglinks.iOS.Services
 {
 	public class TextToSpeech : ITextToSpeech
 	{
-		public event Action<string> LanguageNotAvailable;
-
 		public void Speak(string text, string language)
 		{
 			var synthesizer = new AVSpeechSynthesizer();
@@ -18,7 +16,6 @@ namespace WikiLanglinks.iOS.Services
 
 			if (voice == null)
 			{
-				LanguageNotAvailable?.Invoke($"No voice for language: {language}.");
 				return;
 			}
 

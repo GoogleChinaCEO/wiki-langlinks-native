@@ -79,14 +79,7 @@ namespace WikiLanglinks
         private void Speak()
 		{
 			var textToSpeech = DependencyService.Get<ITextToSpeech>();
-			textToSpeech.LanguageNotAvailable -= OnLanguageNotAvailable;
-			textToSpeech.LanguageNotAvailable += OnLanguageNotAvailable;
 			textToSpeech.Speak(Title, Lang);
-		}
-
-		private void OnLanguageNotAvailable(string msg)
-		{
-			MessagingCenter.Send(this, EventNames.ErrorOccurred, msg);
 		}
     }
 }
