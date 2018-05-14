@@ -107,6 +107,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
+    <Folder Include="Services\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -119,11 +120,15 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
+    <Compile Include="Services\TextToSpeech.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\up_down_arrow%402x.png" />
     <BundleResource Include="Resources\up_down_arrow.png" />
     <BundleResource Include="Resources\up_down_arrow%403x.png" />
+    <BundleResource Include="Resources\play%402x.png" />
+    <BundleResource Include="Resources\play.png" />
+    <BundleResource Include="Resources\play%403x.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <Import Project="..\packages\Xamarin.Forms.3.0.0.446417\build\netstandard2.0\Xamarin.Forms.targets" Condition="Exists('..\packages\Xamarin.Forms.3.0.0.446417\build\netstandard2.0\Xamarin.Forms.targets')" />

@@ -26,5 +26,5 @@ namespace WikiLanglinks
 			var selectionPage = new SelectTargetLangsPage(ViewModel.ResultsVM.TargetLangs, new[] { ViewModel.SearchVM.SourceLang });
 			Navigation.PushAsync(selectionPage);
 		}
-	}
+    }
 }

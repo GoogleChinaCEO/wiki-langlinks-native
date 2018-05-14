@@ -39,6 +39,14 @@
                                     <TapGestureRecognizer Command="{Binding OpenUrlCommand}" />
                                 </Label.GestureRecognizers>
                             </Label>
+                            <Button 
+                                Image="play.png"
+                                HorizontalOptions="End"
+                                BackgroundColor="Transparent"
+                                Scale="0.5"
+                                WidthRequest="40"
+                                IsVisible="{Binding CanSpeak}"
+                                Command="{Binding SpeakCommand}"/>
                         </StackLayout>
                     </ViewCell>
                 </DataTemplate>
