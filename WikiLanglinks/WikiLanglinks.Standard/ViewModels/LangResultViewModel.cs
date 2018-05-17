@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace WikiLanglinks
@@ -90,7 +89,7 @@ namespace WikiLanglinks
             }
             else
             {
-                System.Diagnostics.Debug.WriteLine($"Language is not supported for speaking");
+                DependencyService.Get<IAlert>().Short("Language not supported");
             }
 		}
     }

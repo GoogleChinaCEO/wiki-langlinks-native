@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
@@ -53,7 +54,8 @@ namespace WikiLanglinks
             }
             catch (Exception e)
             {
-                System.Diagnostics.Debug.WriteLine($"Error: {e.Message}");
+                Debug.WriteLine($"Error: {e}");
+                DependencyService.Get<IAlert>().Long(e.Message);
             }
             finally
             {
@@ -62,7 +64,7 @@ namespace WikiLanglinks
         }
 
         private void StartLoading()
-        {
+        {            
             ResultsVM.IsLoading = true;
         }
 
