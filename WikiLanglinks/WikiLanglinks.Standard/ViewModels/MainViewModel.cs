@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace WikiLanglinks
@@ -55,7 +53,7 @@ namespace WikiLanglinks
             }
             catch (Exception e)
             {
-                Debug.WriteLine($"Error: {e.Message}");
+                System.Diagnostics.Debug.WriteLine($"Error: {e.Message}");
             }
             finally
             {
