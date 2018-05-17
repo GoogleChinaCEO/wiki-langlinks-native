@@ -22,4 +22,8 @@
     <Folder Include="Converters\" />
     <Folder Include="Common\" />
   </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Services\ISpeechLanguageChecker.cs" />
+    <Compile Remove="Services\ITextToSpeech.cs" />
+  </ItemGroup>
 </Project>

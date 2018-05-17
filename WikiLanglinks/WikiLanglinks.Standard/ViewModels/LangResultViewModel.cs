@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
+using Xamarin.Essentials;
 using Xamarin.Forms;
 
 namespace WikiLanglinks
@@ -10,7 +12,7 @@ namespace WikiLanglinks
         {
             OpenUrlCommand = new Command(OpenUrl);
             MakeSourceLangCommand = new Command(MakeSourceLang);
-			SpeakCommand = new Command(Speak, () => CanSpeak);
+			SpeakCommand = new Command(async () => await Speak(), () => CanSpeak);
         }
 
         public static LangResultViewModel FromLangSearchResult(LangSearchResult langSearchResult)
@@ -59,7 +61,10 @@ namespace WikiLanglinks
 
         public bool CanSpeak
 		{
-			get { return !string.IsNullOrWhiteSpace(Title); }
+			get 
+            {
+                return !string.IsNullOrWhiteSpace(Title);
+            }
 		}
 
         public ICommand OpenUrlCommand { get; }
@@ -76,10 +81,17 @@ namespace WikiLanglinks
             MessagingCenter.Send(this, EventNames.NewSourceLangRequested);
         }
 
-        private void Speak()
+        private async Task Speak()
 		{
-			var textToSpeech = DependencyService.Get<ITextToSpeech>();
-			textToSpeech.Speak(Title, Lang);
+            var locale = await TextSpeaker.LanguageToLocale(Lang);
+            if (locale != null)
+            {
+                await TextSpeaker.SpeakAsync(Title, locale.Value);
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine($"Language is not supported for speaking");
+            }
 		}
     }
 }
