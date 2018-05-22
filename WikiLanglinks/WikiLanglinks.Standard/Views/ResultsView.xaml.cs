@@ -18,6 +18,12 @@ namespace WikiLanglinks
             {
                 listView.SelectedItem = null;  // disable selection
             }
+
+            var vm = e.Item as LangResultViewModel;
+            if (vm != null) 
+            {
+                vm.MakeSourceLangCommand.Execute(null);
+            }
         }
 
     }
